@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Publications – Mahan Hosseini</title>
+<meta name="description" content="Publications by Mahan Hosseini, PhD, with short summaries of each paper.">
+<meta name="author" content="Mahan Hosseini">
+<meta name="theme-color" content="#f5f8fc">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237fa6c4'/%3E%3Cstop offset='1' stop-color='%23a196cc'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Cpath d='M5 17h6l2.2-7 3.3 13 3-9.5 1.8 3.5H27' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;display=swap">
+<style>
+  /* ==========================================================
+     Theme: calm "lab notebook" — muted pastel signal traces and
+     a spiking network. Colours are defined once here.
+     ========================================================== */
+  :root {
+    --bg: #f7f7f5;
+    --surface: #ffffff;
+    --surface-2: #f3f3f0;
+    --ink: #222a38;
+    --ink-2: #474f5f;
+    --muted: #666c7a;
+    --line: #e7e6e1;
+    --line-2: #d9d7d0;
+
+    /* Pastel tones for graphics, borders and tints */
+    --blue: #7fa6c4;
+    --lavender: #a196cc;
+    --rose: #d09bb0;
+    --sand: #d6b885;
+    --sage: #93bea6;
+    /* Deeper tones that stay readable as text */
+    --link: #4f6688;
+    --accent-ink: #625a92;
+    --grad: linear-gradient(90deg, #7fa6c4 0%, #a196cc 55%, #d09bb0 100%);
+    --grad-text: linear-gradient(90deg, #5f84a6 0%, #7f74b0 55%, #ad7590 100%);
+
+    --radius: 18px;
+    --shadow: 0 1px 2px rgba(34, 42, 56, .035), 0 8px 24px -16px rgba(34, 42, 56, .12);
+    --shadow-lg: 0 2px 4px rgba(34, 42, 56, .04), 0 22px 44px -26px rgba(34, 42, 56, .2);
+
+    --font-display: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-body: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --max: 1160px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink-2);
+    font: 400 16px/1.75 var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  canvas { display: block; }
+  a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--accent-ink); }
+  ::selection { background: rgba(161, 150, 204, .18); }
+  :focus-visible { outline: 2px solid var(--lavender); outline-offset: 3px; border-radius: 6px; }
+  p { margin: 0 0 1em; }
+  sup { line-height: 0; }
+
+  .defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+  .i { width: 16px; height: 16px; flex: none; display: inline-block; vertical-align: middle; }
+  .skip {
+    position: absolute; left: 16px; top: -60px; z-index: 100;
+    background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 10px; text-decoration: none;
+  }
+  .skip:focus { top: 12px; color: #fff; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(247, 247, 245, .8);
+    -webkit-backdrop-filter: saturate(1.6) blur(14px);
+    backdrop-filter: saturate(1.6) blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .25s, background .25s;
+  }
+  .topbar.scrolled { border-bottom-color: var(--line); background: rgba(255, 255, 255, .84); }
+  .topbar-inner {
+    max-width: var(--max); margin: 0 auto; padding: 12px 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .brand {
+    display: inline-flex; align-items: center; gap: 10px; margin-right: auto;
+    font: 600 16px/1 var(--font-display); letter-spacing: -.01em;
+    color: var(--ink); text-decoration: none;
+  }
+  .brand:hover { color: var(--ink); }
+  .brand svg { width: 30px; height: 30px; flex: none; }
+  .nav-links { list-style: none; margin: 0; padding: 0; display: flex; gap: 2px; }
+  .nav-links a {
+    display: block; padding: 8px 12px; border-radius: 999px;
+    font: 500 14px/1 var(--font-body); color: var(--ink-2); text-decoration: none;
+    transition: background .2s, color .2s;
+  }
+  .nav-links a:hover { background: rgba(34, 42, 56, .05); color: var(--ink); }
+  .nav-links a.active { background: rgba(161, 150, 204, .1); color: var(--accent-ink); }
+
+  .button {
+    display: inline-flex; align-items: center; gap: 8px; margin-left: 8px;
+    padding: 10px 18px; border-radius: 999px;
+    background: var(--ink); color: #fff; text-decoration: none;
+    font: 600 14px/1 var(--font-body);
+    box-shadow: 0 6px 16px -10px rgba(34, 42, 56, .45);
+    transition: transform .18s, box-shadow .18s, background-color .25s;
+  }
+  .button:hover { color: #fff; transform: translateY(-1px); background-color: var(--link); box-shadow: 0 10px 22px -12px rgba(79, 102, 136, .55); }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; }
+  .portrait {
+    width: 148px; height: 148px; margin: 0 0 30px; padding: 4px; border-radius: 50%;
+    background: var(--grad); box-shadow: var(--shadow-lg);
+  }
+  .portrait img {
+    display: block; width: 100%; height: 100%; object-fit: cover;
+    border-radius: 50%; border: 4px solid var(--surface);
+  }
+  .hero-grid {
+    max-width: var(--max); margin: 0 auto; padding: 40px 24px 24px;
+    display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+    gap: 40px; align-items: center;
+  }
+  .spike-train { display: block; width: 240px; height: 30px; margin: 0 0 26px; overflow: visible; }
+  .spike-train line { stroke-width: 2; stroke-linecap: round; opacity: .3; transition: opacity .6s ease-out; }
+  .spike-train line.on { opacity: 1; transition: opacity .04s; }
+  .hero h1 {
+    margin: 0 0 28px;
+    font: 700 clamp(46px, 6.6vw, 86px)/.98 var(--font-display);
+    letter-spacing: -.04em; color: var(--ink);
+  }
+  .hero h1 .deg {
+    background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent;
+    padding-right: .04em;
+  }
+  .hero-sub { margin: 0; }
+  .hero-sub .role {
+    display: block; max-width: 30ch;
+    font: 500 clamp(19px, 2vw, 24px)/1.35 var(--font-display); letter-spacing: -.01em; color: var(--ink);
+  }
+  .hero-sub .inst {
+    display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; max-width: 46ch;
+    font: 400 14px/1.6 var(--font-mono); color: var(--muted);
+  }
+  .hero-sub .inst .i { margin-top: 3px; color: var(--lavender); }
+  .hero-visual { margin: 0; position: relative; }
+  .hero-visual canvas { width: 100%; height: auto; aspect-ratio: 1 / 1; }
+
+  /* Sub-page header (publications) */
+  .hero--sub .wrap { padding-top: 64px; padding-bottom: 8px; }
+  .hero--sub h1 { font-size: clamp(46px, 7vw, 92px); margin-bottom: 14px; }
+  .eeg-ribbon {
+    width: 100%; height: 130px; margin-top: 8px;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  /* ---------- Section scaffolding: heading + signal trace ---------- */
+  .section { padding: 104px 0 0; }
+  .sec-head { display: flex; align-items: center; gap: 18px; margin: 0 0 44px; }
+  .sec-head h2 {
+    flex: none; margin: 0;
+    font: 700 clamp(30px, 3.5vw, 44px)/1.08 var(--font-display);
+    letter-spacing: -.03em; color: var(--ink);
+  }
+  .trace { flex: 1 1 auto; min-width: 40px; height: 44px; overflow: visible; }
+  .trace path {
+    fill: none; stroke: url(#g-signal); stroke-width: 1.7;
+    vector-effect: non-scaling-stroke; stroke-linejoin: round; stroke-linecap: round;
+  }
+  html.js .reveal .trace { clip-path: inset(0 100% 0 0); transition: clip-path 1.8s .15s cubic-bezier(.25, .7, .2, 1); }
+  html.js .reveal.in .trace { clip-path: inset(0 0 0 0); }
+
+  @keyframes ping {
+    0% { box-shadow: 0 0 0 0 rgba(161, 150, 204, .45); }
+    80%, 100% { box-shadow: 0 0 0 10px rgba(161, 150, 204, 0); }
+  }
+
+  /* Small headings inside sections, with status LED */
+  .sub {
+    display: flex; align-items: center; gap: 10px; margin: 0 0 18px;
+    font: 600 13px/1 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink);
+  }
+  .led { width: 9px; height: 9px; border-radius: 50%; flex: none; background: var(--c, var(--lavender)); box-shadow: 0 0 0 4px var(--c-soft, rgba(161, 150, 204, .18)); }
+  .led--sage { --c: var(--sage); --c-soft: rgba(147, 190, 166, .18); }
+  .led--sand { --c: var(--sand); --c-soft: rgba(214, 184, 133, .22); }
+  .led--lavender { --c: var(--lavender); --c-soft: rgba(161, 150, 204, .18); }
+  .led--blue { --c: var(--blue); --c-soft: rgba(127, 166, 196, .2); }
+  .led--rose { --c: var(--rose); --c-soft: rgba(208, 155, 176, .18); }
+
+  .when {
+    display: inline-block; white-space: nowrap;
+    padding: 6px 9px; border-radius: 7px;
+    background: rgba(161, 150, 204, .08); color: var(--accent-ink);
+    font: 500 12.5px/1 var(--font-mono); letter-spacing: .01em;
+  }
+
+  /* ---------- Contact panel ---------- */
+  .section.section-contact { padding-top: 16px; }
+  .panel {
+    background: rgba(255, 255, 255, .86);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow-lg);
+    padding: 26px 30px 28px;
+  }
+  .panel .sec-head { margin-bottom: 22px; }
+  .panel .sec-head h2 { font-size: 26px; }
+  .panel .trace { height: 30px; }
+  .readouts {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr) minmax(0, 1.7fr); gap: 12px;
+  }
+  .readouts li {
+    display: flex; flex-direction: column; gap: 6px; min-width: 0;
+    padding: 14px 16px; border-radius: 14px;
+    background: var(--surface-2); border: 1px solid var(--line);
+  }
+  .readouts .label { font: 500 11px/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .readouts a, .readouts .value {
+    color: var(--ink); font-weight: 500; font-size: 15.5px; line-height: 1.5;
+    text-decoration: none; overflow-wrap: anywhere;
+  }
+  .readouts a:hover { color: var(--accent-ink); text-decoration: underline; }
+  .socials { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 0; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 14px; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--line-2);
+    font: 500 14px/1 var(--font-body); color: var(--ink); text-decoration: none;
+    transition: border-color .2s, color .2s, transform .18s, box-shadow .2s;
+  }
+  .chip .logo { width: 15px; height: 15px; flex: none; fill: var(--ink-2); transition: fill .2s; }
+  .chip:hover { border-color: var(--lavender); color: var(--accent-ink); transform: translateY(-1px); box-shadow: var(--shadow); }
+  .chip:hover .logo { fill: var(--accent-ink); }
+
+  /* ---------- Research ---------- */
+  .research-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 56px; align-items: start; }
+  .tagline {
+    position: sticky; top: 112px; margin: 0;
+    font: 600 clamp(28px, 3.3vw, 42px)/1.16 var(--font-display); letter-spacing: -.028em; color: var(--ink);
+  }
+  .tagline .hl { background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .topics { display: grid; gap: 16px; }
+  .topic {
+    display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 18px;
+    padding: 24px 26px; border-radius: var(--radius);
+    background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
+  }
+  .topic p { margin: 0; }
+  .glyph {
+    width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center;
+    background: linear-gradient(135deg, rgba(127, 166, 196, .14), rgba(161, 150, 204, .14));
+    color: var(--accent-ink);
+  }
+  .glyph svg { width: 24px; height: 24px; }
+
+  /* ---------- Education & background ---------- */
+  .bio { max-width: 64ch; margin: 0 0 52px; font-size: clamp(16.5px, 1.5vw, 18.5px); line-height: 1.8; }
+  .milestones {
+    list-style: none; margin: 0; padding: 0; position: relative;
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px;
+  }
+  .milestones::before {
+    content: ""; position: absolute; left: 8px; right: 0; top: 9px; height: 2px;
+    background: var(--grad); opacity: .8; border-radius: 2px;
+  }
+  .milestones li { position: relative; padding-top: 36px; }
+  .milestones li::before {
+    content: ""; position: absolute; top: 1px; left: 0;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--surface); border: 3px solid var(--dot, var(--lavender));
+  }
+  .milestones li:nth-child(1) { --dot: var(--blue); }
+  .milestones li:nth-child(2) { --dot: #9aa3cc; }
+  .milestones li:nth-child(3) { --dot: var(--lavender); }
+  .milestones li:nth-child(4) { --dot: var(--rose); }
+  .milestones li.now::before { background: var(--rose); animation: ping-rose 2s ease-out infinite; }
+  @keyframes ping-rose {
+    0% { box-shadow: 0 0 0 0 rgba(208, 155, 176, .45); }
+    80%, 100% { box-shadow: 0 0 0 12px rgba(208, 155, 176, 0); }
+  }
+  .milestones .yrs { display: block; font: 500 12.5px/1.4 var(--font-mono); color: var(--muted); }
+  .milestones .what { display: block; margin: 6px 0 2px; font: 600 17px/1.3 var(--font-display); color: var(--ink); }
+  .milestones .where { display: block; font-size: 14.5px; line-height: 1.5; }
+
+  /* ---------- Publications ---------- */
+  .pub-group + .pub-group { margin-top: 48px; }
+  .pubs { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .pub {
+    position: relative; overflow: hidden;
+    padding: 22px 26px 22px 30px; border-radius: var(--radius);
+    background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+  }
+  .pub::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent, var(--lavender)); }
+  .pub:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--line-2); }
+  .pubs--published .pub { --accent: linear-gradient(var(--sage), var(--blue)); }
+  .pubs--review .pub { --accent: linear-gradient(var(--sand), var(--rose)); }
+  .pubs--preprint .pub { --accent: linear-gradient(var(--lavender), var(--blue)); }
+  .cite { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
+  .cite strong { color: var(--ink); font-weight: 600; }
+  .cite em { color: var(--ink-2); }
+  .pub-title {
+    display: block; margin: 7px 0;
+    font: 600 clamp(17px, 1.55vw, 20px)/1.35 var(--font-display); letter-spacing: -.012em; color: var(--ink);
+  }
+  .doi {
+    display: inline-flex; align-items: center; gap: 7px; max-width: 100%; margin-top: 14px;
+    padding: 7px 11px; border-radius: 9px;
+    background: var(--surface-2); border: 1px solid var(--line);
+    font: 500 12.5px/1.35 var(--font-mono); color: var(--link); text-decoration: none; overflow-wrap: anywhere;
+    transition: border-color .2s, color .2s, background .2s;
+  }
+  .doi .i { width: 13px; height: 13px; }
+  .doi:hover { background: var(--surface); border-color: var(--lavender); color: var(--accent-ink); }
+  /* AutoGaitA logo beside the DOI: taken out of the flow so the card keeps its size */
+  .pub-foot { position: relative; }
+  .pub-logo { position: absolute; right: 0; bottom: 0; width: auto; height: 44px; }   /* fits between the journal line and the DOI's bottom */
+  @media (min-width: 800px) { .pub-logo { height: 60px; } }                           /* wide cards: the journal line ends well before it */
+  .summary {
+    margin: 18px 0 0; padding: 16px 20px; border-radius: 13px;
+    background: linear-gradient(135deg, rgba(127, 166, 196, .07), rgba(161, 150, 204, .07));
+    border-left: 2px solid rgba(161, 150, 204, .35);
+    font-size: 16px; line-height: 1.72; color: var(--ink-2);
+  }
+
+  /* ---------- Cards (software, activities) ---------- */
+  .cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; }
+  .cards-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cards-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .card {
+    display: flex; flex-direction: column; overflow: hidden;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow);
+    transition: transform .22s, box-shadow .22s, border-color .22s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--line-2); }
+  .card-art {
+    position: relative; height: 158px; border-bottom: 1px solid var(--line);
+    background: var(--surface-2);
+  }
+  .card-art svg { display: block; width: 100%; height: 100%; }
+  .card-body { flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 22px 24px 24px; }
+  .card-body h3 { margin: 0; font: 700 23px/1.2 var(--font-display); letter-spacing: -.02em; color: var(--ink); }
+  .card-body .kicker { margin: -2px 0 0; font: 500 12.5px/1.4 var(--font-mono); letter-spacing: .03em; color: var(--accent-ink); }
+  .card-body p { margin: 0; font-size: 15.5px; line-height: 1.65; }
+  .card-link {
+    align-self: flex-start; margin-top: auto; display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line-2);
+    font: 600 13.5px/1 var(--font-body); color: var(--ink); text-decoration: none;
+    transition: border-color .2s, color .2s, background .2s;
+  }
+  .card-body p + .card-link { margin-top: 16px; }
+  .card-link:hover { border-color: var(--lavender); color: var(--accent-ink); background: rgba(161, 150, 204, .05); }
+  .card-link .i { width: 13px; height: 13px; }
+  /* AutoGaitA logo beside the GitHub button: out of the flow so the card keeps its size */
+  .card-foot { display: flex; position: relative; margin-top: auto; }
+  .card-body p + .card-foot { margin-top: 16px; }
+  .card-foot .card-link { margin-top: 0; }
+  .card-logo { position: absolute; right: 0; bottom: 0; width: auto; height: 44px; }
+  .card.mini .card-body { gap: 12px; padding: 22px 24px; }
+  .card.mini .when { align-self: flex-start; }
+
+  /* ---------- Timelines & rows ---------- */
+  .two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 44px; align-items: start; }
+  .tl { list-style: none; margin: 0; padding: 0; position: relative; }
+  .tl::before {
+    content: ""; position: absolute; left: 8px; top: 18px; bottom: 18px; width: 2px; border-radius: 2px;
+    background: linear-gradient(var(--blue), var(--lavender), var(--rose)); opacity: .75;
+  }
+  .tl li { position: relative; padding: 0 0 14px 38px; }
+  .tl li:last-child { padding-bottom: 0; }
+  .tl li::before {
+    content: ""; position: absolute; left: 0; top: 18px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--surface); border: 3px solid var(--lavender);
+  }
+  .tl li:first-child::before { background: var(--lavender); animation: ping 2.2s ease-out infinite; }
+  .box {
+    padding: 16px 20px; border-radius: 16px;
+    background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
+  }
+  .box .when { margin-bottom: 10px; }
+  .what { margin: 0; color: var(--ink); font-weight: 500; line-height: 1.55; }
+  .detail { margin: 4px 0 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
+
+  .rows {
+    list-style: none; margin: 0; padding: 0; overflow: hidden;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow);
+  }
+  .rows li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 16px; align-items: start; padding: 18px 20px; }
+  .rows li + li { border-top: 1px solid var(--line); }
+  .rows .when { justify-self: start; }
+  .rows .what { margin-top: 1px; }
+
+  /* ---------- Footer ---------- */
+  .footer { margin-top: 128px; padding-bottom: 36px; }
+  .footer .trace { display: block; width: 100%; height: 56px; }
+  .footer-row {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+    margin-top: 10px; padding-top: 18px; border-top: 1px solid var(--line);
+    font: 500 13px/1.4 var(--font-mono); color: var(--muted);
+  }
+  .footer-row a { color: var(--muted); text-decoration: none; }
+  .footer-row a:hover { color: var(--accent-ink); }
+
+  /* ---------- Scroll reveal (only when JS is running) ---------- */
+  html.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .8s cubic-bezier(.2, .7, .2, 1); }
+  html.js .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1040px) {
+    .nav-links a { padding: 8px 9px; }
+    .cards-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 8px; padding-top: 36px; }
+    .hero-visual { max-width: 520px; width: 100%; margin: 0 auto; }
+    .research-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .tagline { position: static; }
+    .two-col { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+    .readouts { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .readouts li:last-child { grid-column: 1 / -1; }
+    .milestones { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 32px; }
+    .milestones::before { display: none; }
+  }
+  @media (max-width: 640px) {
+    body { font-size: 15.5px; }
+    .wrap, .topbar-inner, .hero-grid { padding-left: 16px; padding-right: 16px; }
+    .brand span { display: none; }
+    .portrait { width: 116px; height: 116px; margin-bottom: 22px; }
+    .section { padding-top: 80px; }
+    .sec-head { flex-wrap: wrap; gap: 12px; margin-bottom: 32px; }
+    .sec-head h2 { flex: 1 1 auto; }
+    .sec-head .trace { flex-basis: 100%; height: 32px; }
+    .panel { padding: 22px 18px; border-radius: 20px; }
+    .readouts { grid-template-columns: minmax(0, 1fr); }
+    .cards-3, .cards-2 { grid-template-columns: minmax(0, 1fr); }
+    .topic { grid-template-columns: minmax(0, 1fr); gap: 14px; padding: 20px; }
+    .pub { padding: 18px 18px 18px 22px; }
+    .summary { padding: 14px 15px; font-size: 15.5px; }
+    .milestones { grid-template-columns: minmax(0, 1fr); row-gap: 0; }
+    .milestones li { padding: 0 0 24px 34px; }
+    .milestones li::before { top: 2px; }
+    .milestones::before { display: block; left: 8px; right: auto; top: 10px; bottom: 30px; width: 2px; height: auto; background: linear-gradient(var(--blue), var(--lavender), var(--rose)); }
+    .rows li { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    .eeg-ribbon { height: 96px; }
+  }
+
+  /* Small phones: the DOI fills its whole row, so there is no room for the logo without growing the card */
+  @media (max-width: 470px) {
+    .pub-logo { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; }
+    html.js .reveal { opacity: 1; transform: none; transition: none; }
+    html.js .reveal .trace { clip-path: none; transition: none; }
+  }
+
+  @media print {
+    .topbar, .hero-visual, .eeg-ribbon, .spike-train, .trace, .skip { display: none !important; }
+    html.js .reveal { opacity: 1; transform: none; }
+    .pub, .card, .box, .rows, .panel, .topic { box-shadow: none; break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+<svg class="defs" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g-signal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7fa6c4"/><stop offset=".55" stop-color="#a196cc"/><stop offset="1" stop-color="#d09bb0"/>
+    </linearGradient>
+    <linearGradient id="g-brand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7fa6c4"/><stop offset="1" stop-color="#a196cc"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<nav class="topbar" aria-label="Main">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="url(#g-brand)"/><path d="M5 17h6l2.2-7 3.3 13 3-9.5 1.8 3.5H27" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Mahan Hosseini</span></a>
+    <ul class="nav-links">
+      <li><a href="#peer-reviewed">Peer-reviewed</a></li>
+      <li><a href="#under-review">Under review</a></li>
+      <li><a href="#preprints">Preprints</a></li>
+    </ul>
+    <a class="button" href="index.html"><svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H3M7 4 3 8l4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Home</a>
+  </div>
+</nav>
+
+<header class="hero hero--sub" id="top">
+  <div class="wrap">
+    <svg class="spike-train" aria-hidden="true"></svg>
+    <h1>Publications</h1>
+    <p class="hero-sub"><span class="role">Mahan Hosseini, PhD</span></p>
+  </div>
+  <canvas class="eeg-ribbon" aria-hidden="true"></canvas>
+</header>
+
+<main id="main">
+
+<section id="peer-reviewed" class="section">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Peer-reviewed</h2>
+      <svg class="trace" data-seed="11" aria-hidden="true"></svg>
+    </div>
+    <ul class="pubs pubs--published">
+      <li class="pub reveal">
+        <p class="cite"><strong>Hosseini, M.</strong>, Klein, I., Wunderle, V., Haustein, M., Semmler, C., Kramer, A., Tolve, M., Mardare, V., Galvao, A., Kuzu, T. D., Grefkes, C., Korotkova, T., Bueschges, A., Fink, G. R., Weiss, P. H., Daun, S., &amp; Gatto, G. (2026). <span class="pub-title">Cross-species identification of conserved and divergent locomotor kinematic strategies using AutoGaitA.</span> <em>Proceedings of the National Academy of Sciences</em>, 123(35), e2534093123.</p>
+        <div class="pub-foot"><a class="doi" href="https://doi.org/10.1073/pnas.2534093123" target="_blank" rel="noopener">https://doi.org/10.1073/pnas.2534093123<svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a><img class="pub-logo" src="data:image/png;base64,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" alt="AutoGaitA logo" width="280" height="163"></div>
+        <p class="summary">To compare how the nervous system coordinates movement across species, perturbations and behaviours, we developed AutoGaitA, an open-source Python toolbox for automated gait analysis. Analysing limb kinematics with AutoGaitA, we found that flies, mice and humans generate propulsive strength through different mechanisms but share a distal-to-proximal gradient of joint movement velocities. Ageing reduced propulsive strength in all three species while preserving this gradient, and in mice, locomotion adapted to ageing and task difficulty as an integrated function of both.</p>
+      </li>
+      <li class="pub reveal">
+        <p class="cite"><strong>Hosseini, M.</strong>, Zivony, A., Eimer, M., Wyble, B., &amp; Bowman, H. (2024). <span class="pub-title">Transient attention gates access consciousness: Coupling N2pc and P3 latencies using dynamic time warping.</span> <em>The Journal of Neuroscience</em>, 44(26), e1798232024.</p>
+        <a class="doi" href="https://doi.org/10.1523/JNEUROSCI.1798-23.2024" target="_blank" rel="noopener">https://doi.org/10.1523/JNEUROSCI.1798-23.2024<svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <p class="summary">The N2pc and P3 event-related potentials index selective attention and access to working memory and conscious awareness, but a direct temporal link between them had not been convincingly shown. Using a new method based on Dynamic Time Warping (DTW), we analysed EEG from participants who reported target digits in rapid streams of letters and digits, and found that N2pc and P3 latencies were correlated, with the link being weaker when a distractor was reported. We provide this DTW-based method in the MATLAB and Python toolbox NeuroWarp, which can be used for time series of any kind.</p>
+      </li>
+      <li class="pub reveal">
+        <p class="cite"><strong>Hosseini, M.</strong>, Powell, M., Collins, J., Callahan-Flintoft, C., Jones, W., Bowman, H., &amp; Wyble, B. (2020). <span class="pub-title">I tried a bunch of things: The dangers of unexpected overfitting in classification of brain data.</span> <em>Neuroscience &amp; Biobehavioral Reviews</em>, 119, 456–467.</p>
+        <a class="doi" href="https://doi.org/10.1016/j.neubiorev.2020.09.036" target="_blank" rel="noopener">https://doi.org/10.1016/j.neubiorev.2020.09.036<svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <p class="summary">Machine learning helps neuroscientists extract information from EEG, fMRI and MEG data, but adjusting analysis settings after seeing the results can make findings partly or entirely spurious, a problem we call “overhyping”. We show that such spurious results can be obtained even from random data by changing hyperparameters in seemingly harmless ways, and that cross-validation does not protect against this. To prevent overhyping, we recommend safeguards already common in computer science and physics, such as lock boxes, blind analyses, pre-registration and nested cross-validation.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="under-review" class="section">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Under review</h2>
+      <svg class="trace" data-seed="12" aria-hidden="true"></svg>
+    </div>
+    <ul class="pubs pubs--review">
+      <li class="pub reveal">
+        <p class="cite"><strong>Hosseini, M.</strong>, Zivony, A., Eimer, M., Wyble, B., &amp; Bowman, H. (2026). <span class="pub-title">The 2-feature Simultaneous Type/Serial Token Model of temporal feature conjunctions: Successes are merely fortunate conjunctions.</span> <em>bioRxiv</em> (in review at <em>Neural Networks</em>).</p>
+        <a class="doi" href="https://doi.org/10.64898/2026.09.07.749788" target="_blank" rel="noopener">https://doi.org/10.64898/2026.09.07.749788<svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <p class="summary">When people watch rapid streams of visual stimuli, they sometimes bind features of different items together and report a distractor instead of the target, an error known as a distractor intrusion. We present the 2f-ST<sup>2</sup> model, the newest member of the Simultaneous Type/Serial Token family of neural models (e.g. Bowman &amp; Wyble, 2007), which simulates the key behavioural and electrophysiological findings on distractor intrusions across diverse experimental paradigms without changing its architecture or core parameters. Because it relies on a single binding mechanism, the model is more parsimonious than the leading focused-attention/sophisticated-guessing account and implies that correct reports are simply fortunate conjunctions.</p>
+      </li>
+      <li class="pub reveal">
+        <p class="cite">Jefferis, T., Nayak, A., <strong>Hosseini, M.</strong>, Dogan, C., Ramaswamy, P., &amp; Bowman, H. <span class="pub-title">Amplitude and jitter biases in jackknife ERP latency estimates.</span> In review at <em>NeuroImage</em>.</p>
+        <p class="summary">The jackknife method is widely used to compare the timing of event-related potentials (ERPs) between conditions, by measuring latencies on Grand Averages that each leave out one participant. We examine how these latency estimates are biased by differences in ERP amplitude and provide Dynamic Time Warping as a robust alternative.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="preprints" class="section">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Preprints</h2>
+      <svg class="trace" data-seed="13" aria-hidden="true"></svg>
+    </div>
+    <ul class="pubs pubs--preprint">
+      <li class="pub reveal">
+        <p class="cite">Tutas, J., Tolve, M., Özer-Yildiz, E., Ickert, L., Klein, I., <strong>Hosseini, M.</strong>, Liebsch, F., Dethloff, F., Gavalisco, P., Endepols, H., Yang, M., Georgomanolis, T., Neumaier, B., Drzezga, A., Daun, S., Schwarz, G., Thorens, B., Gatto, G., Frezza, C., &amp; Kononenko, N. (2024). <span class="pub-title">Autophagy regulator ATG5 preserves cerebellar function by safeguarding its glycolytic activity.</span> <em>bioRxiv</em>, 2024.01.27.577372.</p>
+        <a class="doi" href="https://doi.org/10.1101/2024.01.27.577372" target="_blank" rel="noopener">https://doi.org/10.1101/2024.01.27.577372<svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <svg class="trace" data-seed="10" aria-hidden="true"></svg>
+    <div class="footer-row">
+      <span>Mahan Hosseini, PhD</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  'use strict';
+
+  const root = document.documentElement;
+  root.classList.add('js');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  const PALETTE = { blue: [127, 166, 196], lavender: [161, 150, 204], rose: [208, 155, 176], sand: [214, 184, 133] };
+
+  // Small seeded random generator, so decorative signals look the same on every visit.
+  function seededRandom(seed) {
+    let a = seed >>> 0;
+    return () => {
+      a = (a + 0x6D2B79F5) >>> 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  const gauss = (t, mean, sd) => Math.exp(-((t - mean) ** 2) / (2 * sd * sd));
+  const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+
+  // Colour along the blue → lavender → rose signal gradient, for t in [0, 1].
+  function gradientColour(t) {
+    const [a, b, u] = t < 0.55
+      ? [PALETTE.blue, PALETTE.lavender, t / 0.55]
+      : [PALETTE.lavender, PALETTE.rose, (t - 0.55) / 0.45];
+    return a.map((c, i) => Math.round(c + (b[i] - c) * u));
+  }
+
+  function svgElement(name, attrs, parent) {
+    const el = document.createElementNS(SVG_NS, name);
+    for (const key in attrs) el.setAttribute(key, attrs[key]);
+    if (parent) parent.appendChild(el);
+    return el;
+  }
+  function polyline(points) {
+    return points.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('');
+  }
+
+  /* ---------- Section header traces: noisy EEG with an evoked response or a spike ---------- */
+  function drawSectionTrace(svg) {
+    const seed = Number(svg.dataset.seed) || 1;
+    const random = seededRandom(seed * 7919);
+    const W = 600, H = 44, mid = H / 2, N = 300;
+    const phase = [random() * 6.3, random() * 6.3, random() * 6.3];
+    const eventAt = 0.42 + random() * 0.42;
+    const isSpike = seed % 2 === 0;
+    const points = [];
+    for (let i = 0; i <= N; i++) {
+      const x = i / N;
+      let y = 1.2 * Math.sin(x * 29 + phase[0]) + 0.8 * Math.sin(x * 71 + phase[1])
+            + 0.5 * Math.sin(x * 151 + phase[2]) + (random() - 0.5) * 1.6;
+      const t = (x - eventAt) * 150;
+      y += isSpike
+        ? 18 * gauss(t, 0, 0.7) - 6 * gauss(t, 2.4, 1.8)                          // action potential + undershoot
+        : 5 * gauss(t, 0, 1.8) - 9 * gauss(t, 4, 2) + 13 * gauss(t, 11, 4.2);     // ERP: P1, N1, P3
+      points.push([x * W, mid - y]);
+    }
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svgElement('path', { d: polyline(points) }, svg);
+  }
+
+  /* ---------- Hero spike train (raster row) ---------- */
+  function drawSpikeTrain(svg) {
+    const random = seededRandom(42);
+    const W = 240, H = 30;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    const ticks = [];
+    for (let x = 3; x < W - 3; x += 3 + random() * 13) {
+      const [r, g, b] = gradientColour(x / W);
+      ticks.push(svgElement('line', { x1: x, x2: x, y1: 4, y2: H - 4, stroke: `rgb(${r},${g},${b})` }, svg));
+    }
+    if (reduceMotion) return;
+    setInterval(() => {
+      if (document.hidden) return;
+      const tick = ticks[(random() * ticks.length) | 0];
+      tick.classList.add('on');
+      setTimeout(() => tick.classList.remove('on'), 90);
+    }, 110);
+  }
+
+  /* ---------- Software card illustrations ---------- */
+  const ART = {
+    // Joint-angle curves over two stride cycles, stance phases shaded.
+    gait(svg) {
+      const W = 320, H = 158, x0 = 16, cycleW = (W - 32) / 2;
+      for (let c = 0; c < 2; c++) {
+        svgElement('rect', { x: x0 + c * cycleW, y: 14, width: cycleW * 0.6, height: H - 28, rx: 8, fill: 'rgba(127,166,196,.14)' }, svg);
+      }
+      const joints = [
+        { base: 44, amp: 15, colour: '#7fa6c4', f: (p) => Math.cos(2 * Math.PI * p) },
+        { base: 86, amp: 18, colour: '#a196cc', f: (p) => 0.35 * gauss(p, 0.15, 0.06) + gauss(p, 0.72, 0.1) - 0.5 },
+        { base: 124, amp: 13, colour: '#d09bb0', f: (p) => 0.6 * Math.sin(2 * Math.PI * p + 1) - 0.9 * gauss(p, 0.62, 0.05) },
+      ];
+      for (const j of joints) {
+        const pts = [];
+        for (let i = 0; i <= 200; i++) {
+          const u = i / 200, phase = (u * 2) % 1;
+          pts.push([x0 + u * cycleW * 2, j.base - j.amp * j.f(phase)]);
+        }
+        svgElement('path', { d: polyline(pts), fill: 'none', stroke: j.colour, 'stroke-width': 2.2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, svg);
+      }
+    },
+
+    // Two time series aligned by dynamic time warping.
+    warp(svg) {
+      const W = 320, x0 = 16, w = W - 32;
+      const f = (x) => 1.1 * gauss(x, 0.3, 0.05) - 0.6 * gauss(x, 0.42, 0.045) + 0.8 * gauss(x, 0.64, 0.07) + 0.12 * Math.sin(x * 26);
+      const shift = (x) => x - 0.08 * Math.sin(Math.PI * x);
+      const top = (x) => 52 - 26 * f(x);
+      const bottom = (x) => 128 - 26 * f(shift(x));
+      const g = svgElement('g', { stroke: 'rgba(161,150,204,.55)', 'stroke-width': 1, 'stroke-dasharray': '2 3' }, svg);
+      for (let xb = 0.03; xb < 0.98; xb += 0.035) {
+        const xa = shift(xb);
+        svgElement('line', { x1: x0 + xa * w, y1: top(xa), x2: x0 + xb * w, y2: bottom(xb) }, g);
+      }
+      const series = (fn) => { const p = []; for (let i = 0; i <= 200; i++) p.push([x0 + (i / 200) * w, fn(i / 200)]); return p; };
+      svgElement('path', { d: polyline(series(top)), fill: 'none', stroke: '#7fa6c4', 'stroke-width': 2.2, 'stroke-linejoin': 'round' }, svg);
+      svgElement('path', { d: polyline(series(bottom)), fill: 'none', stroke: '#d09bb0', 'stroke-width': 2.2, 'stroke-linejoin': 'round' }, svg);
+    },
+
+    // A continuous movement signal cut into step cycles; the tail is still unsegmented.
+    steps(svg) {
+      const W = 320, H = 158, x0 = 16, w = W - 32, mid = 80, N = 320, segmentedUpTo = 0.74;
+      let phase = 0, prevCycle = 0, lastBoundary = 0, band = 0;
+      const pts = [], boundaries = [0];
+      for (let i = 0; i <= N; i++) {
+        const u = i / N;
+        phase += (5.6 + 1.8 * Math.sin(2 * Math.PI * u * 0.9 + 0.4)) * (2 * Math.PI / N);
+        const cycle = Math.floor(phase / (2 * Math.PI));
+        if (cycle !== prevCycle && u <= segmentedUpTo) { boundaries.push(u); prevCycle = cycle; }
+        pts.push([x0 + u * w, mid - 30 * (0.8 * Math.sin(phase - Math.PI / 2) + 0.3 * Math.sin(2 * phase))]);
+      }
+      for (let k = 1; k < boundaries.length; k++) {
+        const a = boundaries[k - 1], b = boundaries[k];
+        svgElement('rect', { x: x0 + a * w + 1, y: 18, width: (b - a) * w - 2, height: H - 36, rx: 7,
+          fill: band++ % 2 ? 'rgba(161,150,204,.17)' : 'rgba(127,166,196,.17)' }, svg);
+        lastBoundary = b;
+      }
+      svgElement('rect', { x: x0 + lastBoundary * w + 1, y: 18, width: (1 - lastBoundary) * w - 1, height: H - 36, rx: 7,
+        fill: 'none', stroke: 'rgba(34,42,56,.22)', 'stroke-dasharray': '3 4' }, svg);
+      for (const b of boundaries.slice(1)) {
+        const x = x0 + b * w;
+        svgElement('path', { d: `M${x - 4} 10 L${x + 4} 10 L${x} 16 Z`, fill: '#a196cc' }, svg);
+      }
+      svgElement('path', { d: polyline(pts), fill: 'none', stroke: '#474f5f', 'stroke-width': 2, 'stroke-linejoin': 'round', opacity: 0.8 }, svg);
+    },
+  };
+
+  /* ---------- Hero: spiking network shaped like a brain, recorded by four electrodes ---------- */
+  // Lateral view, frontal lobe on the left. Coordinates in a 460 × 460 design space.
+  const BRAIN_OUTLINE = 'M 40,150 C 36,92 88,42 160,28 C 222,14 302,18 352,50 C 396,78 420,126 410,172 C 404,198 392,212 378,220 C 400,238 396,276 360,286 C 338,293 314,288 303,274 L 302,316 C 300,322 278,322 276,316 L 274,262 C 240,266 200,260 172,244 C 152,232 140,214 150,198 C 120,204 76,200 54,184 C 44,176 40,164 40,150 Z';
+  const BRAIN_FOLDS = 'M 150,198 C 190,186 232,172 272,156 M 238,20 C 228,70 216,122 206,182 M 300,266 C 328,246 354,232 380,220 M 306,280 C 334,270 362,258 396,236 M 330,290 C 356,282 380,270 400,252 M 92,60 C 110,90 112,120 100,150 M 320,42 C 300,80 296,110 310,140';
+  const BRAIN_OFFSET = [12, 8];
+
+  function brainNetwork(canvas) {
+    const ctx = canvas.getContext('2d');
+    const VW = 460, VH = 460;
+    const random = seededRandom(20231);
+    const outline = new Path2D(BRAIN_OUTLINE);
+    const folds = new Path2D(BRAIN_FOLDS);
+    const probe = document.createElement('canvas').getContext('2d');
+
+    // Neurons: blue-noise points inside the outline.
+    const nodes = [];
+    for (let tries = 0; nodes.length < 230 && tries < 30000; tries++) {
+      const x = 30 + random() * 400, y = 10 + random() * 320;
+      if (!probe.isPointInPath(outline, x, y)) continue;
+      if (nodes.some((n) => (n.bx - x) ** 2 + (n.by - y) ** 2 < 15.5 ** 2)) continue;
+      nodes.push({ bx: x, by: y });
+    }
+    nodes.forEach((n, i) => {
+      n.i = i;
+      n.x = n.bx + BRAIN_OFFSET[0];
+      n.y = n.by + BRAIN_OFFSET[1];
+      n.phase = random() * Math.PI * 2;
+      n.rgb = gradientColour(clamp((n.x - 50) / 390, 0, 1)).join(',');
+      n.flash = 0;
+      n.refractoryUntil = 0;
+      n.links = [];
+    });
+
+    // Synapses: nearest neighbours plus a few long-range ("small-world") connections.
+    const edges = [];
+    const seen = new Set();
+    const connect = (a, b, long) => {
+      const key = a < b ? a + ':' + b : b + ':' + a;
+      if (a === b || seen.has(key)) return;
+      seen.add(key);
+      const len = Math.hypot(nodes[a].x - nodes[b].x, nodes[a].y - nodes[b].y);
+      const e = { a, b, long, len: long ? len * 1.12 : len, bend: (random() < 0.5 ? -1 : 1) * 0.24 };
+      edges.push(e);
+      nodes[a].links.push({ edge: e, to: b });
+      nodes[b].links.push({ edge: e, to: a });
+    };
+    nodes.forEach((n, i) => {
+      nodes.map((m, j) => [j, (n.x - m.x) ** 2 + (n.y - m.y) ** 2])
+        .filter(([j, d]) => j !== i && d < 34 ** 2)
+        .sort((p, q) => p[1] - q[1])
+        .slice(0, 3)
+        .forEach(([j]) => connect(i, j, false));
+    });
+    for (let added = 0, tries = 0; added < 16 && tries < 2000; tries++) {
+      const a = (random() * nodes.length) | 0, b = (random() * nodes.length) | 0;
+      if (Math.hypot(nodes[a].x - nodes[b].x, nodes[a].y - nodes[b].y) < 150) continue;
+      connect(a, b, true);
+      added++;
+    }
+
+    // Electrodes and their recorded channels.
+    const ELECTRODE_SITES = [[120, 112, 'blue'], [244, 70, 'lavender'], [336, 120, 'rose'], [222, 214, 'sand']];
+    const SAMPLES = 192, SAMPLE_MS = 18;
+    const electrodes = ELECTRODE_SITES.map(([x, y, colour], k) => {
+      const nearest = nodes.reduce((best, n) => (Math.hypot(n.x - x, n.y - y) < Math.hypot(best.x - x, best.y - y) ? n : best));
+      const weights = nodes.map((n) => {
+        const d2 = (n.x - nearest.x) ** 2 + (n.y - nearest.y) ** 2;
+        return d2 < 110 ** 2 ? Math.exp(-d2 / (2 * 42 ** 2)) : 0;
+      });
+      return { node: nearest, rgb: PALETTE[colour].join(','), labelRgb: PALETTE[colour].map((c) => Math.round(c * 0.7)).join(','), label: 'E' + (k + 1), weights, fast: 0, slow: 0,
+        phase: random() * 6.3, buffer: new Float32Array(SAMPLES) };
+    });
+
+    const MAX_PULSES = 260;
+    // Chance that an arriving pulse fires its target: spreads ~60px around the cursor and dies out ~1s after it leaves.
+    const TRANSMIT = 0.34;
+    const STIMULUS_RADIUS = 24;
+    const pulses = [];
+    const stimulus = { x: 0, y: 0, active: false };
+    let clock = 0, sinceStimulus = 0, sinceSample = 0;
+
+    // The cursor acts as a stimulating electrode: neurons under it fire.
+    function stimulate(radius, chance) {
+      for (const n of nodes) {
+        const near = (n.x - stimulus.x) ** 2 + (n.y - stimulus.y) ** 2 < radius * radius;
+        if (near && clock > n.refractoryUntil && random() < chance) fire(n);
+      }
+    }
+
+    function fire(n) {
+      n.flash = 1;
+      n.refractoryUntil = clock + 700;
+      if (pulses.length > MAX_PULSES) return;
+      for (const link of n.links) {
+        pulses.push({ edge: link.edge, from: n.i, to: link.to, t: 0, speed: link.edge.long ? 0.24 : 0.1 });
+      }
+    }
+
+    function update(dt) {
+      clock += dt;
+      // The network is silent until the cursor stimulates it.
+      if (stimulus.active) {
+        sinceStimulus += dt;
+        while (sinceStimulus > 70) {
+          sinceStimulus -= 70;
+          stimulate(STIMULUS_RADIUS, 0.5);
+        }
+      }
+      // Propagate pulses; fewer arrivals succeed when many pulses are in flight, so activity can't run away.
+      const transmit = TRANSMIT * (1 - pulses.length / (MAX_PULSES * 1.4));
+      for (let i = pulses.length - 1; i >= 0; i--) {
+        const p = pulses[i];
+        p.t += (dt * p.speed) / p.edge.len;
+        if (p.t < 1) continue;
+        pulses[i] = pulses[pulses.length - 1];
+        pulses.pop();
+        const target = nodes[p.to];
+        if (clock > target.refractoryUntil && random() < transmit) fire(target);
+      }
+      const decay = Math.exp(-dt / 240);
+      for (const n of nodes) n.flash *= decay;
+
+      // Electrodes: weighted local activity, band-passed, plus a little background rhythm and noise.
+      sinceSample += dt;
+      while (sinceSample >= SAMPLE_MS) {
+        sinceSample -= SAMPLE_MS;
+        for (const e of electrodes) {
+          let raw = 0;
+          for (let k = 0; k < nodes.length; k++) if (e.weights[k]) raw += e.weights[k] * nodes[k].flash;
+          e.fast += (raw - e.fast) * 0.35;
+          e.slow += (raw - e.slow) * 0.03;
+          const v = (e.fast - e.slow) * 8 + 1.4 * Math.sin(clock * 0.011 + e.phase) + 0.7 * Math.sin(clock * 0.037 + e.phase * 2) + (random() - 0.5) * 1.3;
+          e.buffer.copyWithin(0, 1);
+          e.buffer[SAMPLES - 1] = 11 * Math.tanh(v / 11);   // soft limit keeps bursts inside the row
+        }
+      }
+    }
+
+    // Two-tone fill for the silhouette (built once).
+    const fill = ctx.createLinearGradient(40, 0, 430, 0);
+    fill.addColorStop(0, 'rgba(127,166,196,.09)');
+    fill.addColorStop(0.55, 'rgba(161,150,204,.09)');
+    fill.addColorStop(1, 'rgba(208,155,176,.08)');
+
+    let dpr = 1, scale = 1;
+    function resize() {
+      const w = canvas.clientWidth;
+      if (!w) return;
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      scale = w / VW;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(w * (VH / VW) * dpr);
+      draw();
+    }
+
+    function pointOnEdge(e, from, t) {
+      const A = nodes[from], B = nodes[from === e.a ? e.b : e.a];
+      if (!e.long) return [A.px + (B.px - A.px) * t, A.py + (B.py - A.py) * t];
+      const [cx, cy] = controlPoint(e);
+      const u = from === e.a ? t : 1 - t;
+      const P = nodes[e.a], Q = nodes[e.b];
+      return [(1 - u) ** 2 * P.px + 2 * (1 - u) * u * cx + u * u * Q.px, (1 - u) ** 2 * P.py + 2 * (1 - u) * u * cy + u * u * Q.py];
+    }
+    function controlPoint(e) {
+      const P = nodes[e.a], Q = nodes[e.b];
+      const mx = (P.px + Q.px) / 2, my = (P.py + Q.py) / 2;
+      return [mx - (Q.py - P.py) * e.bend, my + (Q.px - P.px) * e.bend];
+    }
+
+    function draw() {
+      ctx.setTransform(dpr * scale, 0, 0, dpr * scale, 0, 0);
+      ctx.clearRect(0, 0, VW, VH);
+
+      for (const n of nodes) {
+        n.px = n.x + Math.sin(clock * 0.0006 + n.phase) * 0.9;
+        n.py = n.y + Math.cos(clock * 0.0005 + n.phase * 1.3) * 0.9;
+      }
+
+      // Silhouette and folds
+      ctx.save();
+      ctx.translate(BRAIN_OFFSET[0], BRAIN_OFFSET[1]);
+      ctx.fillStyle = fill;
+      ctx.fill(outline);
+      ctx.lineWidth = 1.3;
+      ctx.strokeStyle = 'rgba(34,42,56,.16)';
+      ctx.stroke(outline);
+      ctx.clip(outline);
+      ctx.lineWidth = 1.1;
+      ctx.strokeStyle = 'rgba(34,42,56,.07)';
+      ctx.stroke(folds);
+      ctx.restore();
+
+      // Synapses
+      ctx.lineWidth = 0.7;
+      ctx.strokeStyle = 'rgba(34,42,56,.11)';
+      ctx.beginPath();
+      for (const e of edges) {
+        if (e.long) continue;
+        ctx.moveTo(nodes[e.a].px, nodes[e.a].py);
+        ctx.lineTo(nodes[e.b].px, nodes[e.b].py);
+      }
+      ctx.stroke();
+      ctx.strokeStyle = 'rgba(161,150,204,.32)';
+      ctx.setLineDash([2, 4]);
+      ctx.beginPath();
+      for (const e of edges) {
+        if (!e.long) continue;
+        const [cx, cy] = controlPoint(e);
+        ctx.moveTo(nodes[e.a].px, nodes[e.a].py);
+        ctx.quadraticCurveTo(cx, cy, nodes[e.b].px, nodes[e.b].py);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Stimulating electrode under the cursor
+      if (stimulus.active) {
+        ctx.fillStyle = 'rgba(161,150,204,.1)';
+        ctx.strokeStyle = 'rgba(161,150,204,.6)';
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath(); ctx.arc(stimulus.x, stimulus.y, STIMULUS_RADIUS, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Travelling pulses
+      for (const p of pulses) {
+        const [x, y] = pointOnEdge(p.edge, p.from, p.t);
+        const rgb = nodes[p.from].rgb;
+        ctx.fillStyle = `rgba(${rgb},.24)`;
+        ctx.beginPath(); ctx.arc(x, y, 5, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = `rgb(${rgb})`;
+        ctx.beginPath(); ctx.arc(x, y, 2.1, 0, Math.PI * 2); ctx.fill();
+      }
+
+      // Neurons
+      ctx.fillStyle = 'rgba(34,42,56,.34)';
+      ctx.beginPath();
+      for (const n of nodes) { ctx.moveTo(n.px + 1.8, n.py); ctx.arc(n.px, n.py, 1.8, 0, Math.PI * 2); }
+      ctx.fill();
+      for (const n of nodes) {
+        if (n.flash < 0.04) continue;
+        ctx.fillStyle = `rgba(${n.rgb},${0.3 * n.flash})`;
+        ctx.beginPath(); ctx.arc(n.px, n.py, 3 + 9 * n.flash, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = `rgba(${n.rgb},${0.45 + 0.55 * n.flash})`;
+        ctx.beginPath(); ctx.arc(n.px, n.py, 1.8 + 1.8 * n.flash, 0, Math.PI * 2); ctx.fill();
+      }
+
+      // Electrodes
+      ctx.font = '500 10px Poppins, system-ui, sans-serif';
+      ctx.textBaseline = 'middle';
+      for (const e of electrodes) {
+        const { px, py } = e.node;
+        ctx.fillStyle = '#fff';
+        ctx.strokeStyle = `rgb(${e.rgb})`;
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(px, py, 6.5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = `rgb(${e.rgb})`;
+        ctx.beginPath(); ctx.arc(px, py, 2.4, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = `rgb(${e.labelRgb})`;
+        ctx.fillText(e.label, px + 10, py - 9);
+      }
+
+      // Readout panel
+      const top = 350, left = 12, width = 436, height = 100;
+      ctx.fillStyle = 'rgba(255,255,255,.82)';
+      ctx.strokeStyle = 'rgba(34,42,56,.1)';
+      ctx.lineWidth = 1;
+      roundRect(left, top, width, height, 14);
+      ctx.fill(); ctx.stroke();
+      const x0 = 50, step = (width - 60) / (SAMPLES - 1);
+      electrodes.forEach((e, k) => {
+        const y0 = top + 15 + k * 23.5;
+        ctx.fillStyle = `rgb(${e.labelRgb})`;
+        ctx.fillText(e.label, left + 12, y0);
+        ctx.strokeStyle = 'rgba(34,42,56,.07)';
+        ctx.setLineDash([2, 3]);
+        ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x0 + step * (SAMPLES - 1), y0); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.strokeStyle = `rgb(${e.rgb})`;
+        ctx.lineWidth = 1.6;
+        ctx.lineJoin = 'round';
+        ctx.beginPath();
+        for (let i = 0; i < SAMPLES; i++) {
+          const y = y0 - e.buffer[i];
+          i ? ctx.lineTo(x0 + i * step, y) : ctx.moveTo(x0, y);
+        }
+        ctx.stroke();
+        ctx.fillStyle = `rgb(${e.rgb})`;
+        ctx.beginPath(); ctx.arc(x0 + step * (SAMPLES - 1), y0 - e.buffer[SAMPLES - 1], 2.4, 0, Math.PI * 2); ctx.fill();
+      });
+    }
+    function roundRect(x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    // Pointer position in design coordinates; stimulation only happens inside the brain outline.
+    function track(ev) {
+      const rect = canvas.getBoundingClientRect();
+      stimulus.x = ((ev.clientX - rect.left) * VW) / rect.width;
+      stimulus.y = ((ev.clientY - rect.top) * VH) / rect.height;
+      stimulus.active = probe.isPointInPath(outline, stimulus.x - BRAIN_OFFSET[0], stimulus.y - BRAIN_OFFSET[1]);
+      canvas.style.cursor = stimulus.active ? 'crosshair' : '';
+    }
+    function release() {
+      stimulus.active = false;
+      canvas.style.cursor = '';
+    }
+
+    // Warm up so the readout traces are already full on the first frame.
+    for (let t = 0; t < 4000; t += 16) update(16);
+    resize();
+    window.addEventListener('resize', resize);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+    if (reduceMotion) return;
+    canvas.addEventListener('pointermove', track);
+    canvas.addEventListener('pointerdown', (ev) => {   // a tap on touch screens gives one strong burst
+      track(ev);
+      if (stimulus.active) stimulate(STIMULUS_RADIUS * 1.3, 1);
+    });
+    canvas.addEventListener('pointerup', (ev) => { if (ev.pointerType !== 'mouse') release(); });
+    canvas.addEventListener('pointerleave', release);
+    canvas.addEventListener('pointercancel', release);
+    animateWhileVisible(canvas, (dt) => { update(dt); draw(); });
+  }
+
+  /* ---------- Publications header: scrolling multichannel EEG ribbon ---------- */
+  function eegRibbon(canvas) {
+    const ctx = canvas.getContext('2d');
+    const channels = ['blue', 'lavender', 'rose', 'sand', 'blue'].map((c, k) => ({ rgb: PALETTE[c].join(','), k }));
+    let dpr = 1, w = 0, h = 0, clock = 0;
+    function resize() {
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      w = canvas.clientWidth; h = canvas.clientHeight;
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      draw();
+    }
+    function draw() {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+      const rows = channels.length, gap = h / (rows + 1), amp = gap * 0.42;
+      for (const ch of channels) {
+        const y0 = gap * (ch.k + 1);
+        ctx.strokeStyle = `rgba(${ch.rgb},.85)`;
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        for (let x = 0; x <= w; x += 2) {
+          const u = x / 260 + clock * 0.00022 * (1 + ch.k * 0.12);
+          const burst = (u * 0.7 + ch.k * 0.31) % 1;
+          const y = y0
+            - amp * (0.45 * Math.sin(u * 5.1 + ch.k) + 0.3 * Math.sin(u * 11.7 + ch.k * 2.3) + 0.18 * Math.sin(u * 23.9 + ch.k * 4.1))
+            - amp * 1.25 * gauss(burst, 0.5, 0.012) + amp * 0.5 * gauss(burst, 0.53, 0.02);
+          x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+        }
+        ctx.stroke();
+      }
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    if (reduceMotion) return;
+    animateWhileVisible(canvas, (dt) => { clock += dt; draw(); });
+  }
+
+  // Run a frame callback only while the element is on screen and the tab is visible.
+  function animateWhileVisible(el, frame) {
+    let onScreen = true, rafId = 0, last = 0;
+    const loop = (now) => {
+      rafId = 0;
+      frame(Math.min(48, now - last));
+      last = now;
+      if (onScreen && !document.hidden) rafId = requestAnimationFrame(loop);
+    };
+    const start = () => {
+      if (rafId || !onScreen || document.hidden) return;
+      last = performance.now();
+      rafId = requestAnimationFrame(loop);
+    };
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting; start(); }).observe(el);
+    }
+    document.addEventListener('visibilitychange', start);
+    start();
+  }
+
+  /* ---------- Page behaviour ---------- */
+  function revealOnScroll() {
+    const items = document.querySelectorAll('.reveal');
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      items.forEach((el) => el.classList.add('in'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    items.forEach((el) => io.observe(el));
+  }
+
+  function navState() {
+    const bar = document.querySelector('.topbar');
+    if (bar) {
+      const onScroll = () => bar.classList.toggle('scrolled', window.scrollY > 8);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+    const links = new Map();
+    document.querySelectorAll('.nav-links a[href^="#"]').forEach((a) => links.set(a.getAttribute('href').slice(1), a));
+    if (!links.size || !('IntersectionObserver' in window)) return;
+    const spy = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        links.forEach((a) => a.classList.remove('active'));
+        const link = links.get(entry.target.id);
+        if (link) link.classList.add('active');
+      }
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    links.forEach((_, id) => { const section = document.getElementById(id); if (section) spy.observe(section); });
+  }
+
+  document.querySelectorAll('svg.trace').forEach(drawSectionTrace);
+  document.querySelectorAll('svg.spike-train').forEach(drawSpikeTrain);
+  document.querySelectorAll('svg[data-art]').forEach((svg) => {
+    svg.setAttribute('viewBox', '0 0 320 158');
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    ART[svg.dataset.art](svg);
+  });
+  const brain = document.getElementById('brain-net');
+  if (brain) brainNetwork(brain);
+  document.querySelectorAll('canvas.eeg-ribbon').forEach(eegRibbon);
+  revealOnScroll();
+  navState();
+})();
+
+</script>
+</body>
+</html>
